@@ -3,15 +3,6 @@
 // Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
 var articleView = {};
 
-function articleView (articleView) {
-  this.title = articleView.title;
-  this.category = articleView.category;
-  this.author = articleView.author;
-  this.authorUrl = articleView.authorUrl;
-  this.publishedOn = articleView.publishedOn;
-  this.body = articleView.body;
-}
-
 articleView.populateFilters = function() {
   $('article').each(function() {
     var authorName, category, optionTag;
@@ -47,18 +38,19 @@ articleView.handleAuthorFilter = function() {
     if ($(this).val()) {
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
-      //       Use an "attribute selector" to find those articles, and fade them in for the reader.
-        var articleName = $(this).attr('data-content');
+      //       Use an "attribute selector" to find those articles written by the selected author, and fade them in for the reader.
 
-        $('#articles').hide()
-        $('#author-filter').fadeIn()
-      })
+      var articleName = $(this).attr('data-author');
+      $('article').hide()
+      //add a filter that will filter articles by author
+      ($('#category-filter author[value="' + category + '"]'))
+      // $('#category-filter').find(optionTag)
+      $('#author-filter').fadeIn()
+
+
     } else {
-      // TODO: If the select box was changed to an option that is blank, we should
-      //       show all the articles, except the one article we are using as a template.
-        $(!$(this).hasClass('template')).fadeIn()
+      $('#category-filter').val('');
     }
-    $('#category-filter').val('');
   });
 };
 
@@ -96,5 +88,6 @@ articleView.setTeasers = function() {
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
 $(document).ready(function() {
+  articleView.populateFilters();
 
 })
