@@ -3,6 +3,15 @@
 // Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
 var articleView = {};
 
+function articleView (articleView) {
+  this.title = articleView.title;
+  this.category = articleView.category;
+  this.author = articleView.author;
+  this.authorUrl = articleView.authorUrl;
+  this.publishedOn = articleView.publishedOn;
+  this.body = articleView.body;
+}
+
 articleView.populateFilters = function() {
   $('article').each(function() {
     var authorName, category, optionTag;
@@ -18,7 +27,6 @@ articleView.populateFilters = function() {
       if ($('#author-filter option[value="' + authorName + '"]').length === 0) {
         $('#author-filter').append(optionTag);
       }
-
       // REVIEW: Similar to the above, but...
       //       Avoid duplicates! We don't want to append the category name if the select
       //       already has this category as an option!
@@ -40,11 +48,15 @@ articleView.handleAuthorFilter = function() {
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
+        var articleName = $(this).attr('data-content');
 
+        $('#articles').hide()
+        $('#author-filter').fadeIn()
+      })
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-
+        $(!$(this).hasClass('template')).fadeIn()
     }
     $('#category-filter').val('');
   });
