@@ -3,6 +3,15 @@
 // Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
 var articleView = {};
 
+function articleView (articleView) {
+  this.title = articleView.title;
+  this.category = articleView.category;
+  this.author = articleView.author;
+  this.authorUrl = articleView.authorUrl;
+  this.publishedOn = articleView.publishedOn;
+  this.body = articleView.body;
+}
+
 articleView.populateFilters = function() {
   $('article').each(function() {
     var authorName, category, optionTag;
