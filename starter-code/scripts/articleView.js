@@ -8,7 +8,6 @@ articleView.populateFilters = function() {
     if (!$(this).hasClass('template')) {
       authorName = $(this).attr('data-author');
       optionTag = '<option value="' + authorName + '">' + authorName + '</option>';
-
       if ($('#author-filter option[value="' + authorName + '"]').length === 0) {
         $('#author-filter').append(optionTag);
       }
@@ -23,31 +22,26 @@ articleView.populateFilters = function() {
 
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
-    if ($(this).val()) {
-      var authorName = $(this).val()
-      $('article').hide()
-      $('article[data-author= "' + authorName + '"]').fadeIn(750)
-    } else {
-      $('#category-filter').val('');
+    console.log('hello');
+    if($(this).val()) {
+      var authorName = $(this).val();
+      $('article').hide();
+      $('article[data-author= "' + authorName + '"]').fadeIn(750);
+      console.log($(this).val());
+    }else {
+      $('article').fadeIn(750);
     }
   });
 };
 
 articleView.handleCategoryFilter = function() {
-  // TODO: Just like we do for #author-filter above, we should handle change events on the #category-filter element.
-  //       When an option with a value is selected, hide all the articles, then reveal the matches.
-  //       When the blank (default) option is selected, show all the articles, except for the template.
-  //       Be sure to reset the #author-filter while you are at it!
-
-};
-articleView.handleAuthorFilter = function() {
-  $('#author-filter').on('change', function() {
+  $('#category-filter').on('change', function() {
     if ($(this).val()) {
-      var authorName = $(this).val()
+      var categoryName = $(this).val()
       $('article').hide()
-      $('article[data-author= "' + authorName + '"]').fadeIn(750)
+      $('article[data-category= "' + categoryName + '"]').fadeIn(750)
     } else {
-      $('#category-filter').val('');
+      $('article').fadeIn(750);
     }
   });
 };
@@ -80,5 +74,6 @@ articleView.setTeasers = function() {
 $(document).ready(function() {
   articleView.populateFilters();
   articleView.handleAuthorFilter();
+  articleView.handleCategoryFilter();
 
 })
